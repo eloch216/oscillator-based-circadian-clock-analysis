@@ -30,6 +30,17 @@ combinations, recoloring, annotations, etc.
   in a new ```output``` directory, whose content should be identical to the
   ```output_archive``` directory provided with the repository
 
-#### A word of caution
+#### Alternate method
+- The main script (```run_all.R```) simply calls each of the ```analyze_NNN.R```
+  scripts, where `NNN` is a phrase that signifies one part of the calculations
+- As an alternative to sourcing that script, individual analysis scripts can
+  be sourced instead to produce a subset of all outputs
+- Within individual analysis scripts, additional control is possible using the
+  booleans defined at the start of each one
+
+### Words of caution
 - These scripts have not been optimized for efficiency, and some of the
 operations may take a long time to run
+- Setting ```SAVE_TO_FILE = FALSE``` is unlikely to work on MacOS or Linux,
+  since doing so will result in calls to ```x11()```, an R function that only
+  exists on Windows
