@@ -9,7 +9,7 @@ source("utilities/gdd_utilities.R")
 
 ## Choose which operations to perform
 DO_NEW_CALCULATIONS <- TRUE
-DETERMINE_ERRORS <- TRUE     # produces figure s10
+DETERMINE_ERRORS <- TRUE     # produces figure s11
 COMPARE_CROPGRO_GDD <- TRUE  # produces figures 7a and 7b
 SAVE_TO_FILE <- TRUE
 
@@ -58,7 +58,7 @@ if (COMPARE_CROPGRO_GDD) {
             WARM = TRUE,
             sowing_dates = DEF_SOWING_DATES
         )
-        
+
         cropgro_v_gdd_surfrad <- comp_grimm_ttc_sowing_dates(
             latitude = DEF_LATITUDE,
             longitude = DEF_LONGITUDE,
@@ -109,11 +109,11 @@ if (COMPARE_CROPGRO_GDD) {
     else {
         load(file=paste0(DATA_DIR, "/cropgro_gdd_comparison.RData"))
     }
-    
+
     # Set up some colors
 	cols <- brewer.pal(8, "Dark2")
 	cols <- c("#000000", cols)
-    
+
     # Produce figure 7a
     ttc_v_grimm_plot <- xyplot(
 		doy_r1_TTc ~ doy_r1,
@@ -131,7 +131,7 @@ if (COMPARE_CROPGRO_GDD) {
         xlab="Flowering day (celestial mechanics)",
         ylab="Flowering day (GDD model)"
 	)
-    
+
 	EdR.plot(
         ttc_v_grimm_plot,
         SAVE_TO_FILE,
@@ -139,14 +139,14 @@ if (COMPARE_CROPGRO_GDD) {
         width=8,
         height=8
     )
-    
+
     # Produce figure 7b
     ylabel <- paste0(
         "Flowering day difference",
         "\n",
         "(GDD model - celestial mechanics)"
     )
-    
+
     diff_v_temp_plot <- xyplot(
 		difference ~ summer_T_avg,
         group=doy_sow,
@@ -162,7 +162,7 @@ if (COMPARE_CROPGRO_GDD) {
         xlab="Average summer temperature (degrees C)",
         ylab=ylabel
 	)
-    
+
 	EdR.plot(
         diff_v_temp_plot,
         SAVE_TO_FILE,
@@ -215,28 +215,28 @@ if (DETERMINE_ERRORS) {
             sowing_dates = DEF_SOWING_DATES,
             print_updates = TRUE
         )
-        
-        save(gdd_errors, file=paste0(DATA_DIR, "/figure_s10.RData"))
+
+        save(gdd_errors, file=paste0(DATA_DIR, "/figure_s11.RData"))
     }
     else {
-        load(file=paste0(DATA_DIR, "/figure_s10.RData"))
+        load(file=paste0(DATA_DIR, "/figure_s11.RData"))
     }
-    
+
     # Fit a quadratic model
     model <- lm(error ~ poly(TTc_thresholds, 2, raw=TRUE), data=gdd_errors)
-    
+
     # Get the coefficients
     a2 <- coef(model)[3]  # coefficient of x^2
     a1 <- coef(model)[2]  # coefficient of x
     a0 <- coef(model)[1]  # intercept
-    
+
     # Get the value of TTc_threshold that minimizes the error
     best_threshold <- -a1 / (2 * a2)
-    
+
     # Add a new column
-    gdd_errors$parabolic_fit <- a0 + a1 * gdd_errors$TTc_thresholds + 
+    gdd_errors$parabolic_fit <- a0 + a1 * gdd_errors$TTc_thresholds +
                                 a2 * gdd_errors$TTc_thresholds^2
-    
+
     # Make a caption for the figure
     caption <- paste(
         "Parabolic fit:",
@@ -252,7 +252,7 @@ if (DETERMINE_ERRORS) {
         "Minimum occurs for threshold =",
         best_threshold
     )
-    
+
     fitting_plot <- xyplot(
         error + parabolic_fit ~ TTc_thresholds,
         data = gdd_errors,
@@ -263,11 +263,11 @@ if (DETERMINE_ERRORS) {
         ylab="Total error (arb. units)",
         auto=TRUE
     )
-    
+
 	EdR.plot(
         fitting_plot,
         SAVE_TO_FILE,
-        paste0(FIGURE_DIR, "/figure_s10.pdf"),
+        paste0(FIGURE_DIR, "/figure_s11.pdf"),
         width=6,
         height=7
     )

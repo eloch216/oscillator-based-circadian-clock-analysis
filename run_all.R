@@ -27,6 +27,6 @@ source("analyze_accuracy.R")
 ## CROPGRO model. Note: table s3 may take a long time (multiple hours)
 source("analyze_cropgro.R")
 
-## Generate figures s10, 7a, and 7b, which pertain to a simple development model
+## Generate figures s11, 7a, and 7b, which pertain to a simple development model
 ## based on growing degree days (GDDs).
 source("analyze_gdd.R")

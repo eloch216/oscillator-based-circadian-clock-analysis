@@ -7,8 +7,9 @@ with crop growth simulations," which has been submitted to
 These scripts have been tested using R version 4.0.3 and RTools version 4.0.0
 running on Windows 10 Enterprise version 20H2.
 
-All outputs were generated on March 4, 2021 and stored in the
-```output_archive``` directory.
+All outputs were generated using these scripts and stored in the
+```output_archive``` directory, with the exception of any RData files exceeding
+100 MB in size.
 
 Figures in the manuscript were produced from the PDFs in
 ```output_archive/figures``` using Adobe Illustrator to perform the final
