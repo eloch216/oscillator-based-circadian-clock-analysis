@@ -1,0 +1,5 @@
+"year","doy","hour","zen","direct_n","diffuse","par","temp","rh","windspeed","pressure","zen_clean","direct_n_clean","diffuse_clean","par_clean","temp_clean","rh_clean","windspeed_clean","pressure_clean"
+1994,365,20,110.1965,-1.33,NA,0.5,NA,NA,NA,NA,110.1965,-1.33,NA,0.5,NA,NA,NA,NA
+1994,365,21,121.4995,-0.71,NA,0.5,NA,NA,NA,NA,121.4995,-0.71,NA,0.5,NA,NA,NA,NA
+1994,365,22,132.9475,-0.82,NA,0.505,NA,NA,NA,NA,132.9475,-0.82,NA,0.505,NA,NA,NA,NA
+1994,365,23,144.1805,-0.815,NA,0.495,NA,NA,NA,NA,144.1805,-0.815,NA,0.495,NA,NA,NA,NA
