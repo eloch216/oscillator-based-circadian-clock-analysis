@@ -12,10 +12,10 @@ source("utilities/process_SURFRAD_settings.R")
 ## Specify which operations to perform. Set all of these to TRUE to completely
 ## reprocess the data.
 LOAD_AND_SAVE_SURFRAD <- TRUE   # produces 'YYYY_original.csv' files
-COMBINE_HOURLY_SURFRAD <- TRUE  # produces 'all_raw_hourly_data.Rdata'
-CLEAN_HOURLY_SURFRAD <- TRUE    # produces 'all_clean_hourly_data.Rdata'
+COMBINE_HOURLY_SURFRAD <- TRUE  # produces 'all_raw_hourly_data.RData'
+CLEAN_HOURLY_SURFRAD <- TRUE    # produces 'all_clean_hourly_data.RData'
 SPLIT_HOURLY_SURFRAD <- TRUE    # produces 'YYYY_processed.csv' files
-                                # and 'surfrad_hourly_cdt.Rdata'
+                                # and 'surfrad_hourly_cdt.RData'
 
 ## Combine the raw SURFRAD data into one CSV file for each year
 if (LOAD_AND_SAVE_SURFRAD) {
@@ -59,7 +59,7 @@ if (COMBINE_HOURLY_SURFRAD) {
     # Save the resulting data frame
     save(
         all_raw_hourly_data,
-        file=paste0(SURFRAD_PROCESSED_DIR, "/all_raw_hourly_data.Rdata")
+        file=paste0(SURFRAD_PROCESSED_DIR, "/all_raw_hourly_data.RData")
     )
 }
 
@@ -70,7 +70,7 @@ if (COMBINE_HOURLY_SURFRAD) {
 ## that otherwise wouldn't be possible to fill.
 if (CLEAN_HOURLY_SURFRAD) {
     # Load the big data frame with all the raw hourly data
-    load(file=paste0(SURFRAD_PROCESSED_DIR, "/all_raw_hourly_data.Rdata"))
+    load(file=paste0(SURFRAD_PROCESSED_DIR, "/all_raw_hourly_data.RData"))
 
     # Convert to CDT
     all_clean_hourly_data <-
@@ -92,13 +92,13 @@ if (CLEAN_HOURLY_SURFRAD) {
     # Save the resulting data frame
     save(
         all_clean_hourly_data,
-        file=paste0(SURFRAD_PROCESSED_DIR, "/all_clean_hourly_data.Rdata")
+        file=paste0(SURFRAD_PROCESSED_DIR, "/all_clean_hourly_data.RData")
     )
 }
 
 if (SPLIT_HOURLY_SURFRAD) {
     # Load the big data frame with all the clean hourly data
-    load(file=paste0(SURFRAD_PROCESSED_DIR, "/all_clean_hourly_data.Rdata"))
+    load(file=paste0(SURFRAD_PROCESSED_DIR, "/all_clean_hourly_data.RData"))
 
     # Split the hourly data into yearly chunks, saving each as a csv file and
     # storing them in the workspace
