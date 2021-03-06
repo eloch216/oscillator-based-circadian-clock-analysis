@@ -296,10 +296,10 @@ analyze_oscillator_stats <- function(
     # Get stats for each day of the year
     for (i in 1:length(doy)) {
         doy_subset <- total_series[which(total_series$doy==doy[i]),]
-        
+
         day_length_average[i] <- mean(doy_subset$day_length)
         day_length_stdev[i] <- sd(doy_subset$day_length)
-        day_length_range[i] <- max(doy_subset$day_length) - 
+        day_length_range[i] <- max(doy_subset$day_length) -
                                 min(doy_subset$day_length)
         day_length_diff_average[i] <- mean(doy_subset$day_length_diff)
         day_length_diff_stdev[i] <- sd(doy_subset$day_length_diff)
@@ -355,6 +355,6 @@ analyze_oscillator_stats <- function(
         sunrise_f5,
         sunrise_IQR
     )
-    
+
     return(result)
 }

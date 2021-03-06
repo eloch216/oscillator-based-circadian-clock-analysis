@@ -84,8 +84,8 @@ run_oscillator <- function(
     # [0, 2 * pi), expressed in units of pi
     result$dawn_phase_2 <- result$dawn_phase
     for (i in 2:length(result$dawn_phase_2)) {
-        result$dawn_phase_2[i] <- result$dawn_phase_2[i-1] + 
-            (result$dawn_phase[i] - result$dawn_phase[i-1]) + 
+        result$dawn_phase_2[i] <- result$dawn_phase_2[i-1] +
+            (result$dawn_phase[i] - result$dawn_phase[i-1]) +
             2 * pi * ((result$dawn_phase[i] - result$dawn_phase[i-1]) < 0)
     }
     result$dawn_phase_2 <- result$dawn_phase_2 / pi

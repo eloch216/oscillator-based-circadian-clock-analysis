@@ -117,7 +117,7 @@ if (ANALYZE_IC) {
 if (ANALYZE_JUMP) {
     # Either run calculations or load a previously stored result
     if (DO_NEW_CALCULATIONS) {
-        
+
         # Do the calculations with the standard time step for plotting purposes
         jump_result <- run_clock_jumps_gaussian(
             target_doy_dbl = RESPONSE_DOY_JUMP,
@@ -138,10 +138,10 @@ if (ANALYZE_JUMP) {
             light_exp_at_zero = DEF_LIGHT_EXP_AT_ZERO,
             tracker_rate = DEF_TRACKER_RATE
         )
-        
+
         # Add a column for sigma
         jump_result$sigma <- jump_result$new_dl / 4.0
-        
+
         # Do the calculations with a finer time step for determining entrainment
         # times
         jump_result_hires <- run_clock_jumps_gaussian(
@@ -163,7 +163,7 @@ if (ANALYZE_JUMP) {
             light_exp_at_zero = DEF_LIGHT_EXP_AT_ZERO,
             tracker_rate = DEF_TRACKER_RATE
         )
-        
+
         # Get info about the timing
         dl_values <- unique(jump_result_hires$new_dl) # Get all target day length values
         final_photoperiod_values <- dl_values
@@ -227,7 +227,7 @@ if (ANALYZE_JUMP) {
         width = 6,
         height = 5
     )
-    
+
     # Plot the entrainment times
     jump_overlay_plot <- xyplot(
         final_photoperiod_values ~ entrainment_times,
@@ -242,7 +242,7 @@ if (ANALYZE_JUMP) {
             superpose.symbol=list(col=c("#000000")))
         )
     )
-    
+
     EdR.plot(
         jump_overlay_plot,
         SAVE_TO_FILE,
@@ -250,13 +250,13 @@ if (ANALYZE_JUMP) {
         width = 6,
         height = 5
     )
-    
+
     # Plot the solar profile for the longest and shortest days
     gaussian_solar_plot <- xyplot(
         solar ~ doy_dbl,
         group=factor(sigma),
         data=jump_result[which(
-            jump_result$sigma==min(jump_result$sigma) | 
+            jump_result$sigma==min(jump_result$sigma) |
                 jump_result$sigma==max(jump_result$sigma)),],
         type='l',
         xlim=c(70,71),
@@ -264,7 +264,7 @@ if (ANALYZE_JUMP) {
         xlab="day of year",
         ylab="PPFD (umol / m^2 / s)"
     )
-    
+
     EdR.plot(
         gaussian_solar_plot,
         SAVE_TO_FILE,

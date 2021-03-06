@@ -10,7 +10,7 @@ day_of_year <- function(year, month, day) {
     # First check if this is a leap year, and then get the offset for the start
     # of the month, which is the DOY corresponding to the first of the month
     month_offset <- 0
-    
+
     if((year %% 4) == 0) {
         # This is a leap year
         month_offset <- switch(
@@ -47,7 +47,7 @@ day_of_year <- function(year, month, day) {
             335
         )
     }
-    
+
     return(month_offset + day - 1)
 }
 
@@ -65,7 +65,7 @@ load_warm_dataset <- function(
         header = TRUE,
         nrows = 1
     )
-    
+
     cmiday <- read.delim(
         data_file_name,
         sep = "\t",
@@ -73,9 +73,9 @@ load_warm_dataset <- function(
         skip = 2,
         stringsAsFactors = FALSE
     )
-    
+
     colnames(cmiday) <- colnames(cmiday_names)
-    
+
     # Search for the first row where year is blank
     # This indicates the end of the data
     end_index <- 1
@@ -85,16 +85,16 @@ load_warm_dataset <- function(
             break
         }
     }
-    
+
     # Get rid of the end of the table
     cmiday <- cmiday[1:end_index,]
-    
+
     # Subset the table to the data columns
     cmiday_data <- cmiday[,data_column_names]
-    
+
     # Get the corresponding error indicators
     cmiday_error <- cmiday[,error_column_names]
-    
+
     # Go through the data and replace any missing entries by NA. Some missing
     # entries are identified by an "M" in the corresponding error column. Others
     # are identified by an empty string in the data column. Still others are
@@ -107,7 +107,7 @@ load_warm_dataset <- function(
             }
         }
     }
-    
+
     # Add a column for DOY
     cmiday_data$doy <- cmiday_data$day
     for (i in 1:length(cmiday_data$day)) {
@@ -117,7 +117,7 @@ load_warm_dataset <- function(
             cmiday_data$day[i]
         )
     }
-    
+
     return(cmiday_data)
 }
 
@@ -126,19 +126,19 @@ load_warm_dataset <- function(
 replace_nans_warm <- function(daily_data, column_names, solar_column_name) {
     # Add a new column expressing days since 1 January 1985, so each day can be
     # specified in a unique way with a single column
-    daily_data$doy_1985 <- (as.numeric(daily_data$year) - 1985) * 365 + 
+    daily_data$doy_1985 <- (as.numeric(daily_data$year) - 1985) * 365 +
                             floor(0.25 * (as.numeric(daily_data$year) - 1985)) +
                             as.numeric(daily_data$doy)
-    
-    
+
+
     # Do the procedure for each column / parameter name
     for (icol in 1:length(column_names)) {
         # Make the name for a new "clean" version of this column
         clean_name <- paste(column_names[icol], "_clean", sep="")
-        
+
         # Add the clean column
         daily_data[,clean_name] <- daily_data[,column_names[icol]]
-        
+
         # Get the index of the original parameter column and the clean version
         col_index <- grep(
             paste0("^", column_names[icol], "$"),
@@ -148,10 +148,10 @@ replace_nans_warm <- function(daily_data, column_names, solar_column_name) {
             paste0("^", clean_name, "$"),
             colnames(daily_data)
         )
-        
+
         # Get the daily values of this parameter
         idata <- daily_data[,col_index]
-        
+
         # Check to see if there are at least two values that aren't NA. If there
         # aren't, just skip this column since we won't be able to fix such a
         # serious problem with the input data.
@@ -159,10 +159,10 @@ replace_nans_warm <- function(daily_data, column_names, solar_column_name) {
         else {
             # Get the doy values
             doy_values <- daily_data$doy_1985
-            
+
             # Create a function that interpolates the daily values
             f <- approxfun(doy_values, idata, method="linear", rule=1)
-            
+
             # Replace any NAs
             for(i in 1:length(idata)) {
                 if (is.na(daily_data[i,col_index])) {
@@ -171,10 +171,10 @@ replace_nans_warm <- function(daily_data, column_names, solar_column_name) {
             }
         }
     }
-    
+
     # Remove the doy_1985 column
     daily_data$doy_1985 <- NULL
-    
+
     # Add a solar_source column (indicating where values were interpreted for
     # the solar column)
     daily_data$solar_source <- 1
@@ -183,7 +183,7 @@ replace_nans_warm <- function(daily_data, column_names, solar_column_name) {
             daily_data$solar_source[i] <- 2
         }
     }
-    
+
     # Return the result
     return(daily_data)
 }
@@ -213,7 +213,7 @@ generate_hourly_profiles <- function(
         year[1],
         doy[1]
     )
-    
+
     # Get the hourly solar radiation profile for the first point
     solar_result <- generate_hourly_solar_profile(
         hourly_sun_position_profile,
@@ -223,7 +223,7 @@ generate_hourly_profiles <- function(
         atmospheric_pressure
     )
     solar_result$solar_source <- solar_source[1]
-    
+
     # Get the hourly temperature profile for the first point
     temp_result <- generate_hourly_temperature_profile(
         year[1],
@@ -236,14 +236,14 @@ generate_hourly_profiles <- function(
         t_today_max[1],
         t_tomorrow_min[1]
     )
-    
+
     # Combine all the profiles
     result <- cbind(
         hourly_sun_position_profile,
         solar_result,
         temp_result
     )
-    
+
     # Get the rest of the results and add them
     for (i in 2:length(year)) {
         # Get the hourly solar coordinates for this point
@@ -253,7 +253,7 @@ generate_hourly_profiles <- function(
             year[i],
             doy[i]
         )
-        
+
         # Get the hourly solar radiation profile for this point
         solar_result <- generate_hourly_solar_profile(
             hourly_sun_position_profile,
@@ -263,7 +263,7 @@ generate_hourly_profiles <- function(
             atmospheric_pressure
         )
         solar_result$solar_source <- solar_source[i]
-        
+
         # Get the hourly temperature profile for this point
         temp_result <- generate_hourly_temperature_profile(
             year[i],
@@ -276,18 +276,18 @@ generate_hourly_profiles <- function(
             t_today_max[i],
             t_tomorrow_min[i]
         )
-        
+
         # Combine all the profiles
         new_result <- cbind(
             hourly_sun_position_profile,
             solar_result,
             temp_result
         )
-        
+
         # Add them to the total result
         result <- rbind(result, new_result)
     }
-    
+
     # Return the result
     return(result)
 }
@@ -305,19 +305,19 @@ get_hourly_warm_data <- function(
     atmospheric_transmittance,
     atmospheric_pressure
 )
-{   
+{
     # Get yesterday's maximum temperature, just using zero for the first day
     daily_data$t_yesterday_max <- 0
     for (i in 2:length(daily_data$t_yesterday_max)) {
         daily_data$t_yesterday_max[i] <- daily_data[[max_air_temp_col]][i-1]
     }
-    
+
     # Get tomorrow's minimum temperature, just using zero for the last day
     daily_data$t_tomorrow_min <- 0
     for (i in 1:(length(daily_data$t_tomorrow_min)-1)) {
         daily_data$t_tomorrow_min[i] <- daily_data[[min_air_temp_col]][i+1]
     }
-    
+
     # Calculate hourly values
     result <- generate_hourly_profiles(
         longitude,
@@ -335,10 +335,10 @@ get_hourly_warm_data <- function(
         atmospheric_transmittance,
         atmospheric_pressure
     )
-    
+
     # Add a doy_dbl column
     result$doy_dbl <- result$doy + result$hour / 24.0
-    
+
     # Return the result
     return(result)
 }

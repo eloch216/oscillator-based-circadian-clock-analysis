@@ -9,7 +9,7 @@ source("utilities/celestial_mechanics_utilities.R")
 ## Services Engineering Research and Technology (2016)
 ## doi:10.1177/0143624407078642.
 calculate_temperature <- function(temp_next, temp_prev, hour, h_next, h_prev) {
-	temp <- 0.5 * (temp_next + temp_prev) - 0.5 * (temp_next - temp_prev) * 
+	temp <- 0.5 * (temp_next + temp_prev) - 0.5 * (temp_next - temp_prev) *
             cos(pi * (hour - h_prev) / (h_next - h_prev))
 	return(temp)
 }
@@ -39,7 +39,7 @@ generate_hourly_temperature_profile <- function(
     t_today_min <- as.numeric(t_today_min)
     t_today_max <- as.numeric(t_today_max)
     t_tomorrow_min <- as.numeric(t_tomorrow_min)
-    
+
     # Get the previous day
     if (doy == 1) {
         # This is the first day of the year, so the previous day is the last day
@@ -52,7 +52,7 @@ generate_hourly_temperature_profile <- function(
         yesterday_year <- year
         yesterday_doy <- doy - 1
     }
-    
+
     # Get the next day
     if ((year %% 4 == 0 && doy == 366) || (year %% 4 != 0 && doy == 365)) {
         # This is the last day of the year, so the next day is the first day
@@ -64,7 +64,7 @@ generate_hourly_temperature_profile <- function(
         tomorrow_year <- year
         tomorrow_doy <- doy + 1
     }
-    
+
     # Get the sunset / sunrise / midday / day length info for today and the
     # surrounding days
     yesterday_param <- calculate_sunrise(
@@ -74,7 +74,7 @@ generate_hourly_temperature_profile <- function(
         longitude,
         sunrise_threshold_angle
     )
-    
+
     today_param <- calculate_sunrise(
         year,
         doy,
@@ -82,7 +82,7 @@ generate_hourly_temperature_profile <- function(
         longitude,
         sunrise_threshold_angle
     )
-    
+
     tomorrow_param <- calculate_sunrise(
         tomorrow_year,
         tomorrow_doy,
@@ -90,28 +90,28 @@ generate_hourly_temperature_profile <- function(
         longitude,
         sunrise_threshold_angle
     )
-    
+
     # Get the hour of yesterday's maximum temperature, which occurs two hours
     # after solar noon. Note: we also need to subtract 24 h, since this hour is
     # from yesterday
     h_yesterday_max <- yesterday_param$hour_transit + 2.0 - 24.0
-    
+
     # Get the hour of today's minimum temperature, which occurs one hour before
     # dawn
     h_today_min <- today_param$sunrise - 1.0
-    
+
     # Get the hour of today's maximum temperature, which occurs two hours after
     # solar noon
     h_today_max <- today_param$hour_transit + 2.0
-    
+
     # Get the hour of tomorrow's minimum temperature, which occurs one hour
     # before dawn. Note: we also need to add 24 h, since this hour is from
     # tomorrow
     h_tomorrow_min <- tomorrow_param$sunrise - 1.0 + 24.0
-    
+
     # Generate a list of hours for today
     hour <- seq(from=0, to=23, by=1)
-    
+
     # Calculate the hourly temperature values
     temp <- hour
     for (i in 1:length(hour)) {
@@ -150,10 +150,10 @@ generate_hourly_temperature_profile <- function(
             )
         }
     }
-    
+
     # Convert from Fahrenheit to Celsius
     temp <- (temp - 32) * (5 / 9)
-    
+
     # Return a dataframe with the results
     return(data.frame(temp))
 }

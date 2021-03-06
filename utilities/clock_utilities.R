@@ -149,11 +149,11 @@ run_biocro_clock_gaussian <- function(
         to = num_doy_to_run * 24 - 1,
         by = 1
     )
-    
+
     doy <- floor(hour_seq / 24.0)
-    
+
     hour <- hour_seq - doy * 24.0
-    
+
     weather_data <- list(
         doy = doy,
         hour = hour
