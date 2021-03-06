@@ -15,6 +15,9 @@ source("analyze_oscillators.R")
 ## oscillator clock and its light environment
 source("analyze_coupling.R")
 
+## Generate figure S12, which shows the result of sensitivity analysis
+source("analyze_sensitivity.R")
+
 ## Generate figures 4a and 4b, which pertain to the response of an oscillator
 ## clock to its initial conditions or sudden changes in photoperiod length
 source("analyze_response.R")
