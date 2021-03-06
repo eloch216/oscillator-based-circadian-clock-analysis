@@ -3,10 +3,10 @@
 ## Date of Soybean Cultivars. Crop Science 33, 137–144 (1993).
 
 library(BioCro)
-library(EdR)
 
 source("utilities/weather_utilities.R")
 source("utilities/celestial_mechanics_utilities.R")
+source("utilities/EdR.R")
 
 ## Define a function that runs the Grimm model using the astronomical day length
 run_astronomical_grimm <- function(
@@ -811,8 +811,8 @@ test_grimm_sowing_dates_model_params <- function(
 )
 {
     # Make the output vectors
-    total_length <- length(grimm_N_min_vec) * 
-                    length(grimm_N_opt_vec) * 
+    total_length <- length(grimm_N_min_vec) *
+                    length(grimm_N_opt_vec) *
                     length(sowing_date_vec)
     grimm_N_min <- numeric(total_length)
     grimm_N_opt <- numeric(total_length)
@@ -866,11 +866,11 @@ test_grimm_sowing_dates_model_params <- function(
 
                 # Get the clock and celestial flowering date
                 oscillator_fd <- comparison[which(
-                    comparison$value_type=="flowering_date" & 
+                    comparison$value_type=="flowering_date" &
                         comparison$day_length_source=="clock"),
                             c("value")][1]
                 astronomy_fd <- comparison[which(
-                    comparison$value_type=="flowering_date" & 
+                    comparison$value_type=="flowering_date" &
                         comparison$day_length_source=="celestial_mechanics"),
                             c("value")][1]
 
@@ -885,7 +885,7 @@ test_grimm_sowing_dates_model_params <- function(
             }
         }
     }
-    
+
     # Get the year
     year <- weather_data$year[1]
 
@@ -1023,7 +1023,7 @@ test_grimm_sowing_dates_model_params_all_years <- function(
         else {
             biocro_weather_data <- convert_to_biocro_surfrad(weather_data)
         }
-        
+
         # Run the test
         temp_result <- test_grimm_sowing_dates_model_params(
             latitude,
@@ -1063,7 +1063,7 @@ test_grimm_sowing_dates_model_params_all_years <- function(
             grimm_N_opt_vec,
             sowing_date_vec
         )
-        
+
         result <- rbind(result, temp_result)
     }
 
@@ -1088,7 +1088,7 @@ test_grimm_sowing_dates_model_params_analyze <- function(combo_result) {
     for (nm in grimm_N_min_vec) {
         for (no in grimm_N_opt_vec) {
             # Get the differences
-            differences <- combo_result[which(combo_result$grimm_N_min==nm & 
+            differences <- combo_result[which(combo_result$grimm_N_min==nm &
                 combo_result$grimm_N_opt==no), c("difference")]
 
             # Get the squared differences

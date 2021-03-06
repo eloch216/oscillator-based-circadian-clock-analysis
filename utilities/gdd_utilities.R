@@ -2,10 +2,10 @@
 ## against a simpler one based on growing degree days (GDD)
 
 library(BioCro)
-library(EdR)
 
 source("utilities/cropgro_utilities.R")
 source("utilities/weather_utilities.R")
+source("utilities/EdR.R")
 
 ## Define a function that determines flowering date based on the CROPGRO model
 ## (using celestial mechanics or an oscillator clock to determine the
@@ -582,7 +582,7 @@ comp_grimm_ttc_test_thresholds <- function(
                 TTc_thresholds[i]
             ))
         }
-        
+
         sowing_day_results <- comp_grimm_ttc_sowing_dates(
             latitude,
             longitude,
@@ -623,9 +623,9 @@ comp_grimm_ttc_test_thresholds <- function(
             WARM,
             sowing_dates
         )
-        
+
         error[i] <- comp_grimm_ttc_error(sowing_day_results)
-        
+
         if (print_updates) {
             print(paste(
                 "error value:",
