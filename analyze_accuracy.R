@@ -32,7 +32,7 @@ SAVE_TO_FILE <- TRUE
             verbose = FALSE,
             WARM = FALSE
         )
-        
+
         result_warm <- run_clock_all_years(
             kick_strength = DEF_KICK_STRENGTH,
             clock_gamma = DEF_CLOCK_GAMMA,
@@ -50,7 +50,7 @@ SAVE_TO_FILE <- TRUE
             verbose = FALSE,
             WARM = TRUE
         )
-        
+
         # Get some stats about the clock accuracy
         surfrad_accuracy <- analyze_oscillator_stats(
             result_surfrad,
@@ -58,7 +58,7 @@ SAVE_TO_FILE <- TRUE
             DEF_LATITUDE,
             DEF_SUNRISE_THRESHOLD_ANGLE
         )
-        
+
         # Exclude 1989 from the WARM analysis since we don't have the beginning of
         # that year
         warm_accuracy <- analyze_oscillator_stats(
@@ -67,14 +67,14 @@ SAVE_TO_FILE <- TRUE
             DEF_LATITUDE,
             DEF_SUNRISE_THRESHOLD_ANGLE
         )
-        
+
         # Combine the accuracy results
         total_accuracy <- EdR.merge(
             list(surfrad_accuracy, warm_accuracy),
             list("SURFRAD", "WARM"),
             "data_source"
         )
-        
+
         # Get stats excluding 2015 from the SURFRAD set, since it seems to beginning
         # "weird"
         surfrad_accuracy_no_2015 <- analyze_oscillator_stats(
@@ -83,7 +83,7 @@ SAVE_TO_FILE <- TRUE
             DEF_LATITUDE,
             DEF_SUNRISE_THRESHOLD_ANGLE
         )
-        
+
         # Calculate the day length in 2019 using celestial mechanics
         calculated_2019 <- calculate_day_length(
             2019,
@@ -91,7 +91,7 @@ SAVE_TO_FILE <- TRUE
             DEF_LATITUDE,
             DEF_SUNRISE_THRESHOLD_ANGLE
         )
-        
+
         save(
             result_surfrad,
             result_warm,
@@ -251,7 +251,7 @@ EdR.plot(
 ## Produce Figure s8
 
 surfrad_no_2015_fivnenum_plot <- xyplot(
-    day_length_f1 + day_length_f2 + day_length_f3 + day_length_f4 + 
+    day_length_f1 + day_length_f2 + day_length_f3 + day_length_f4 +
         day_length_f5 + day_length_calc_average ~ doy,
     data=surfrad_accuracy_no_2015,
     type='l',

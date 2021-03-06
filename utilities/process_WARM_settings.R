@@ -17,9 +17,9 @@ WARM_DATA_COLUMNS <- c(
     "max_soiltemp_4in_sod", "min_soiltemp_4in_sod", "avg_soiltemp_4in_sod",
     "max_soiltemp_8in_sod", "min_soiltemp_8in_sod", "avg_soiltemp_8in_sod",
     "max_soiltemp_4in_bare", "min_soiltemp_4in_bare", "avg_soiltemp_4in_bare",
-    "max_soiltemp_2in_bare", "min_soiltemp_2in_bare", "avg_soiltemp_2in_bare"  
+    "max_soiltemp_2in_bare", "min_soiltemp_2in_bare", "avg_soiltemp_2in_bare"
 )
-    
+
 ## Specify the corresponding error indicators that should be paired with each
 ## data column. Note: some columns, e.g. year, cannot have errors. For these
 ##columns, just use the data column as the error column since it will never
@@ -32,11 +32,11 @@ WARM_ERROR_COLUMNS <- c(
     "xrher", "nrher", "arher",
     "adper",
     "pcer",
-    "pevaper", 
+    "pevaper",
     "xst4soder", "nst4soder", "ast4soder",
     "xst8soder", "nst8soder", "ast8soder",
     "xst4bareer", "nst4bareer", "ast4bareer",
-    "xst2bareer", "nst2bareer", "ast2bareer"  
+    "xst2bareer", "nst2bareer", "ast2bareer"
 )
 
 ## Specify data columns that should be cleaned (most of them, with the exception
@@ -52,7 +52,7 @@ WARM_CLEAN_COLUMNS <- c(
     "max_soiltemp_4in_sod", "min_soiltemp_4in_sod", "avg_soiltemp_4in_sod",
     "max_soiltemp_8in_sod", "min_soiltemp_8in_sod", "avg_soiltemp_8in_sod",
     "max_soiltemp_4in_bare", "min_soiltemp_4in_bare", "avg_soiltemp_4in_bare",
-    "max_soiltemp_2in_bare", "min_soiltemp_2in_bare", "avg_soiltemp_2in_bare"  
+    "max_soiltemp_2in_bare", "min_soiltemp_2in_bare", "avg_soiltemp_2in_bare"
 )
 
 ## Specify the names of a few important columns

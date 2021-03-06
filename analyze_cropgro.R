@@ -136,7 +136,7 @@ if (ANALYZE_CLOCK_VS_CELESTIAL) {
 
     # Set up some colors
     cols <- brewer.pal(8, "Dark2")
-    
+
     cols <- c("#000000", cols)
 
     # Plot the clock date vs celestial date
@@ -166,7 +166,7 @@ if (ANALYZE_CLOCK_VS_CELESTIAL) {
         width = 8,
         height = 8
     )
-    
+
     clock_v_celestial_plot_surfrad <- xyplot(
         clock_flowering_date ~ celestial_flowering_date,
         group = factor(sowing_doy),
@@ -193,7 +193,7 @@ if (ANALYZE_CLOCK_VS_CELESTIAL) {
         width = 8,
         height = 8
     )
-    
+
     # Plot the clock difference against average summer temperature
     date_difference_plot_warm <- xyplot(
         diff ~ summer_T_avg,
@@ -212,7 +212,7 @@ if (ANALYZE_CLOCK_VS_CELESTIAL) {
         main="WARM",
         ylim=c(-5,5)
     )
-    
+
     EdR.plot(
         date_difference_plot_warm,
         SAVE_TO_FILE,
@@ -220,7 +220,7 @@ if (ANALYZE_CLOCK_VS_CELESTIAL) {
         width=6,
         height=6
     )
-    
+
     date_difference_plot_surfrad <- xyplot(
         diff ~ summer_T_avg,
         data=flowering_dates_surfrad[order(flowering_dates_surfrad$summer_T_avg),],
@@ -238,7 +238,7 @@ if (ANALYZE_CLOCK_VS_CELESTIAL) {
         main="SURFRAD",
         ylim=c(-5,5)
     )
-    
+
     EdR.plot(
         date_difference_plot_surfrad,
         SAVE_TO_FILE,
@@ -288,10 +288,10 @@ if (TEST_CROPGRO_PARAMETERS) {
             sowing_date_vec = DEF_SOWING_DATES,
             WARM = TRUE
         )
-        
+
         error_result <-
             test_grimm_sowing_dates_model_params_analyze(combo_result)
-        
+
         if (SAVE_TO_FILE) {
             write.csv(
                 error_result,
@@ -299,7 +299,7 @@ if (TEST_CROPGRO_PARAMETERS) {
                 row.names=FALSE
             )
         }
-        
+
         save(
             combo_result,
             error_result,

@@ -41,29 +41,29 @@ COUPLING_DAY_PHASE <- 200
             adaptive_max_steps = DEF_ADAPTIVE_MAX_STEPS,
             verbose = FALSE
         )
-        
+
         # Add new columns for rescaled solar values
         hires_warm_clock$solar_norm <- hires_warm_clock$solar / 400
         hires_warm_clock$solar_norm2 <- hires_warm_clock$solar / 2000
-        
+
         # Add a new column for 1-L
         hires_warm_clock$light_inverse <- 1.0 - hires_warm_clock$light
-        
+
         # Save the result, since this simulation may take a long time to run and
         # it would be nice if we don't need to redo it
         save(hires_warm_clock, file=paste0(DATA_DIR, "/figure_3.RData"))
     }
     else {
         load(paste0(DATA_DIR, "/figure_3.RData"))
-    }    
+    }
 }
 
 day_subset_zeitgeber <- hires_warm_clock[which(
-    hires_warm_clock$doy_dbl >= COUPLING_DAY_ZEITGEBER & 
+    hires_warm_clock$doy_dbl >= COUPLING_DAY_ZEITGEBER &
         hires_warm_clock$doy_dbl < COUPLING_DAY_ZEITGEBER + 1),]
-        
+
 day_subset_phase <- hires_warm_clock[which(
-    hires_warm_clock$doy_dbl >= COUPLING_DAY_PHASE & 
+    hires_warm_clock$doy_dbl >= COUPLING_DAY_PHASE &
         hires_warm_clock$doy_dbl < COUPLING_DAY_PHASE + 1),]
 
 # Plot dawn zeitgeber info for one day of WARM data

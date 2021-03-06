@@ -40,7 +40,7 @@ if (ANALYZE_KICK_RESPONSE) {
             adaptive_max_steps = DEF_ADAPTIVE_MAX_STEPS,
             verbose = FALSE
         )
-        
+
         # Save the result, since this simulation may take a long time to run and
         # it would be nice if we don't need to redo it
         save(poincare_result, file=paste0(DATA_DIR, "/figure_2.RData"))
@@ -48,11 +48,11 @@ if (ANALYZE_KICK_RESPONSE) {
     else {
         load(paste0(DATA_DIR, "/figure_2.RData"))
     }
-    
+
     # Add a new column that splits the result into three time intervals, chosen
     # to correspond to the intervals where the kick is either zero or nonzero
     poincare_result$interval <- floor(poincare_result$doy_dbl / 100.0)
-    
+
     phase_space_plot <- xyplot(
         dawn_b ~ dawn_a,
         group = factor(interval),
@@ -64,7 +64,7 @@ if (ANALYZE_KICK_RESPONSE) {
         ylab = "Oscillator b",
         grid = TRUE
     )
-    
+
 	EdR.plot(
         phase_space_plot,
         SAVE_TO_FILE,
@@ -72,7 +72,7 @@ if (ANALYZE_KICK_RESPONSE) {
         width=6,
         height=6
     )
-    
+
     phase_progression_plot <- xyplot(
         dawn_phase_2 ~ doy_dbl,
         group = factor(interval),
@@ -84,7 +84,7 @@ if (ANALYZE_KICK_RESPONSE) {
         ylab = "Oscillator phase (phi / pi)",
         grid = TRUE
     )
-    
+
 	EdR.plot(
         phase_progression_plot,
         SAVE_TO_FILE,
@@ -92,17 +92,17 @@ if (ANALYZE_KICK_RESPONSE) {
         width=6,
         height=6
     )
-    
+
 }
 
 ## Compare a Poincare oscillator to a "magic" oscillator
 if (COMPARE_POINCARE_MAGIC) {
-    
+
     if (DO_NEW_CALCULATIONS) {
         # Run the simulations
-        
+
         KICK_START_FOR_COMPARE <- 0.0
-        
+
         poincare_result <- run_oscillator(
             "poincare_clock",
             kick_strength = OSCILLATOR_TEST_KICK_STRENGTH,
@@ -118,7 +118,7 @@ if (COMPARE_POINCARE_MAGIC) {
             adaptive_max_steps = DEF_ADAPTIVE_MAX_STEPS,
             verbose = FALSE
         )
-        
+
         magic_result <- run_oscillator(
             "magic_clock",
             kick_strength = OSCILLATOR_TEST_KICK_STRENGTH,
@@ -134,13 +134,13 @@ if (COMPARE_POINCARE_MAGIC) {
             adaptive_max_steps = DEF_ADAPTIVE_MAX_STEPS,
             verbose = FALSE
         )
-        
+
         total_result <- EdR.merge(
             list(poincare_result, magic_result),
             list("poincare", "magic"),
             "clock_type"
         )
-        
+
         # Save the result, since this simulation may take a long time to run and
         # it would be nice if we don't need to redo it
         save(total_result, file=paste0(DATA_DIR, "/figure_s5.RData"))
@@ -148,10 +148,10 @@ if (COMPARE_POINCARE_MAGIC) {
     else {
         load(paste0(DATA_DIR, "/figure_s5.RData"))
     }
-    
+
     total_result_subset <- total_result[which(total_result$doy_dbl >= 180 &
         total_result$doy_dbl <= 220),]
-    
+
     phase_space_plot <- xyplot(
         dawn_b ~ dawn_a | clock_type,
         data = total_result_subset,
@@ -162,7 +162,7 @@ if (COMPARE_POINCARE_MAGIC) {
         ylab = "Oscillator b",
         grid = TRUE
     )
-    
+
 	EdR.plot(
         phase_space_plot,
         SAVE_TO_FILE,
@@ -170,7 +170,7 @@ if (COMPARE_POINCARE_MAGIC) {
         width=12,
         height=6
     )
-    
+
     phase_progression_plot <- xyplot(
         dawn_phase_2 ~ doy_dbl | clock_type,
         data = total_result_subset,
@@ -180,7 +180,7 @@ if (COMPARE_POINCARE_MAGIC) {
         ylab = "Oscillator phase (phi / pi)",
         grid = TRUE
     )
-    
+
 	EdR.plot(
         phase_progression_plot,
         SAVE_TO_FILE,
@@ -188,5 +188,5 @@ if (COMPARE_POINCARE_MAGIC) {
         width=12,
         height=6
     )
-    
+
 }
