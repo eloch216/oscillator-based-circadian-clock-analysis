@@ -40,7 +40,7 @@ combinations, recoloring, annotations, etc.
 
 ### Words of caution
 - These scripts have not been optimized for efficiency, and some of the
-operations may take a long time to run
-- Setting ```SAVE_TO_FILE = FALSE``` is unlikely to work on MacOS or Linux,
-  since doing so will result in calls to ```x11()```, an R function that only
-  exists on Windows
+  operations may take a long time to run
+- Setting ```SAVE_TO_FILE = FALSE``` on MacOS or Linux requires an X server to
+  be installed and running, since doing so will result in calls to the
+  ```x11()``` R function
