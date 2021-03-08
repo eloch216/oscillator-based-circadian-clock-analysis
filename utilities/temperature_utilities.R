@@ -155,5 +155,5 @@ generate_hourly_temperature_profile <- function(
     temp <- (temp - 32) * (5 / 9)
 
     # Return a dataframe with the results
-    return(data.frame(temp))
+    return(data.frame(temp, stringsAsFactors=FALSE))
 }

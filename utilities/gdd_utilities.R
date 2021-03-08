@@ -634,5 +634,5 @@ comp_grimm_ttc_test_thresholds <- function(
         }
     }
 
-    return(data.frame(TTc_thresholds, error))
+    return(data.frame(TTc_thresholds, error, stringsAsFactors=FALSE))
 }

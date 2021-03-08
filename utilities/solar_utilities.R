@@ -82,6 +82,7 @@ generate_hourly_solar_profile <- function(
         direct_transmittance,
         diffuse_transmittance,
         total_transmittance,
-        solar
+        solar,
+        stringsAsFactors=FALSE
     ))
 }

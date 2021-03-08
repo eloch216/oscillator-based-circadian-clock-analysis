@@ -427,11 +427,16 @@ extract_flowering_dates <- function(comp_result) {
     # Get the average summertime temperature
     summer_T_avg <- comp_result$summer_T_avg[1]
 
-    return(as.data.frame(list(
-        clock_flowering_date=clock_flowering_date,
-        celestial_flowering_date=celestial_flowering_date,
-        summer_T_avg=summer_T_avg
-    )))
+    return(
+        as.data.frame(
+            list(
+                clock_flowering_date=clock_flowering_date,
+                celestial_flowering_date=celestial_flowering_date,
+                summer_T_avg=summer_T_avg
+            ),
+            stringsAsFactors=FALSE
+        )
+    )
 }
 
 ## Define a function that runs 'compare_oscillator_to_astronomical' for all
@@ -894,7 +899,8 @@ test_grimm_sowing_dates_model_params <- function(
         sowing_date,
         grimm_N_min,
         grimm_N_opt,
-        difference
+        difference,
+        stringsAsFactors=FALSE
     ))
 
 }
@@ -1104,5 +1110,5 @@ test_grimm_sowing_dates_model_params_analyze <- function(combo_result) {
         }
     }
 
-    return(data.frame(grimm_N_min, grimm_N_opt, error))
+    return(data.frame(grimm_N_min, grimm_N_opt, error, stringsAsFactors=FALSE))
 }

@@ -15,7 +15,10 @@ get_yearly_surfrad <- function(directory_path, columns, column_names) {
 
     # Make an empty data frame to store the results
     result <- setNames(
-        data.frame(matrix(ncol = length(column_names), nrow = 0)),
+        data.frame(
+            matrix(ncol = length(column_names), nrow = 0),
+            stringsAsFactors=FALSE
+        ),
         column_names
     )
 
@@ -38,7 +41,7 @@ get_yearly_surfrad <- function(directory_path, columns, column_names) {
     setwd(current_directory)
 
     # Make sure all columns contain numeric data
-    result <- as.data.frame(sapply(result, as.numeric))
+    result <- as.data.frame(sapply(result, as.numeric), stringsAsFactors=FALSE)
 
     # Return the result
     return(result)
@@ -79,13 +82,19 @@ get_hourly_from_yearly_surfrad <- function(
 
     # Make an empty data frame to store the results
     result <- setNames(
-        data.frame(matrix(ncol = length(column_names), nrow = 0)),
+        data.frame(
+            matrix(ncol = length(column_names), nrow = 0),
+            stringsAsFactors=FALSE
+        ),
         column_names
     )
 
     # Make a data frame with one row to store individual hourly time points
     temporary <- setNames(
-        data.frame(matrix(ncol = length(column_names), nrow = 1)),
+        data.frame(
+            matrix(ncol = length(column_names), nrow = 1),
+            stringsAsFactors=FALSE
+        ),
         column_names
     )
 
@@ -160,7 +169,7 @@ get_hourly_from_yearly_surfrad <- function(
     }
 
     # Make sure all columns contain numeric data
-    result <- as.data.frame(sapply(result, as.numeric))
+    result <- as.data.frame(sapply(result, as.numeric), stringsAsFactors=FALSE)
 
     # Return the result
     return(result)
