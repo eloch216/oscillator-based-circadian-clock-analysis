@@ -37,6 +37,9 @@ get_yearly_surfrad <- function(directory_path, columns, column_names) {
     # Go back to the original directory
     setwd(current_directory)
 
+    # Make sure all columns contain numeric data
+    result <- as.data.frame(sapply(result, as.numeric))
+
     # Return the result
     return(result)
 }
@@ -155,6 +158,9 @@ get_hourly_from_yearly_surfrad <- function(
             result <- rbind(result, temporary)
         }
     }
+
+    # Make sure all columns contain numeric data
+    result <- as.data.frame(sapply(result, as.numeric))
 
     # Return the result
     return(result)
