@@ -24,6 +24,7 @@ print("analyze_coupling.R")
 source("analyze_coupling.R")
 
 ## Generate figure S12, which shows the result of sensitivity analysis
+print("analyze_sensitivity.R")
 source("analyze_sensitivity.R")
 
 ## Generate figures 4a and 4b, which pertain to the response of an oscillator
