@@ -9,7 +9,7 @@ source("utilities/gdd_utilities.R")
 
 ## Choose which operations to perform
 DO_NEW_CALCULATIONS <- TRUE
-DETERMINE_ERRORS <- TRUE     # produces figure s10
+DETERMINE_ERRORS <- TRUE     # produces figure s11
 COMPARE_CROPGRO_GDD <- TRUE  # produces figures 7a and 7b
 SAVE_TO_FILE <- TRUE
 
@@ -216,10 +216,10 @@ if (DETERMINE_ERRORS) {
             print_updates = TRUE
         )
 
-        save(gdd_errors, file=paste0(DATA_DIR, "/figure_s10.RData"))
+        save(gdd_errors, file=paste0(DATA_DIR, "/figure_s11.RData"))
     }
     else {
-        load(file=paste0(DATA_DIR, "/figure_s10.RData"))
+        load(file=paste0(DATA_DIR, "/figure_s11.RData"))
     }
 
     # Fit a quadratic model
@@ -267,7 +267,7 @@ if (DETERMINE_ERRORS) {
 	EdR.plot(
         fitting_plot,
         SAVE_TO_FILE,
-        paste0(FIGURE_DIR, "/figure_s10.pdf"),
+        paste0(FIGURE_DIR, "/figure_s11.pdf"),
         width=6,
         height=7
     )

@@ -23,6 +23,10 @@ source("analyze_oscillators.R")
 print("analyze_coupling.R")
 source("analyze_coupling.R")
 
+## Generate figure S12, which shows the result of sensitivity analysis
+print("analyze_sensitivity.R")
+source("analyze_sensitivity.R")
+
 ## Generate figures 4a and 4b, which pertain to the response of an oscillator
 ## clock to its initial conditions or sudden changes in photoperiod length
 print("analyze_response.R")
@@ -38,7 +42,7 @@ source("analyze_accuracy.R")
 print("analyze_cropgro.R")
 source("analyze_cropgro.R")
 
-## Generate figures s10, 7a, and 7b, which pertain to a simple development model
+## Generate figures s11, 7a, and 7b, which pertain to a simple development model
 ## based on growing degree days (GDDs).
 print("analyze_gdd.R")
 source("analyze_gdd.R")

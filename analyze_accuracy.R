@@ -191,7 +191,7 @@ day_length_fivnenum_warm_plot <- xyplot(
     xlim=c(1,366),
     ylim=c(6,16),
     xlab="Day of year",
-    ylab="Five number summary for day length (hours)"
+    ylab="Photoperiod length (hours)"
 )
 
 EdR.plot(
@@ -214,7 +214,7 @@ day_length_fivnenum_plot <- xyplot(
     xlim=c(1,366),
     ylim=c(6,16),
     xlab="Day of year",
-    ylab="Five number summary for day length (hours)"
+    ylab="Photoperiod length (hours)"
 )
 
 EdR.plot(
@@ -259,7 +259,7 @@ surfrad_no_2015_fivnenum_plot <- xyplot(
     xlim=c(1,366),
     ylim=c(6,16),
     xlab="Day of year",
-    ylab="Five number summary for day length (hours)",
+    ylab="Photoperiod length (hours)",
     main="SURFRAD excluding 2015"
 )
 
