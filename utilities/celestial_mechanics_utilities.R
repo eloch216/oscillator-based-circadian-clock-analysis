@@ -62,7 +62,7 @@ calculate_solar_coordinates <- function(ndate) {
     eot <- eot / 360
 
     # Return the results
-    return(data.frame(L, g, ell, ep, ra, dec, eot))
+    return(data.frame(L, g, ell, ep, ra, dec, eot, stringsAsFactors=FALSE))
 }
 
 ## Define a function that calculates sunrise and sunset times for a given day
@@ -122,14 +122,19 @@ calculate_sunrise <- function(
             asin(solar_diameter / (2 * solar_distance)) * RTD
 
     # Return the results
-    return(as.data.frame(list(
-        day_length = day_length,
-        sunrise = sunrise,
-        sunset = sunset,
-        hour_transit = hour_transit,
-        solar_angular_diameter = solar_angular_diameter,
-        solar_coordinates
-    )))
+    return(
+        as.data.frame(
+            list(
+                day_length = day_length,
+                sunrise = sunrise,
+                sunset = sunset,
+                hour_transit = hour_transit,
+                solar_angular_diameter = solar_angular_diameter,
+                solar_coordinates
+            ),
+            stringsAsFactors=FALSE
+        )
+    )
 }
 
 ## Define a function that calculates day length throughout a year based on
@@ -269,5 +274,12 @@ generate_hourly_sun_position_profile <- function(
     hour <- (n * HPD + 7.5) %% HPD
 
     # Return the results
-    return(data.frame(year, doy, hour, zenith_angle, cosine_zenith_angle))
+    return(data.frame(
+        year,
+        doy,
+        hour,
+        zenith_angle,
+        cosine_zenith_angle,
+        stringsAsFactors=FALSE
+    ))
 }

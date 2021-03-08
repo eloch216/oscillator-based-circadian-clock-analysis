@@ -83,7 +83,8 @@ analyze_surfrad_solar_source <- function() {
 
     # Get the info about the first year
     result <- as.data.frame(
-        count_solar_sources_surfrad(convert_to_biocro_surfrad(weather_data))
+        count_solar_sources_surfrad(convert_to_biocro_surfrad(weather_data)),
+        stringsAsFactors=FALSE
     )
 
     # Get the info from the remaining years
@@ -94,7 +95,10 @@ analyze_surfrad_solar_source <- function() {
 
         # Get the info
         temp_result <- as.data.frame(
-            count_solar_sources_surfrad(convert_to_biocro_surfrad(weather_data))
+            count_solar_sources_surfrad(
+                convert_to_biocro_surfrad(weather_data)
+            ),
+            stringsAsFactors=FALSE
         )
 
         # Add it to the result
@@ -119,7 +123,8 @@ analyze_warm_solar_source <- function() {
 
     # Get the info about the first year
     result <- as.data.frame(
-        count_solar_sources_warm(convert_to_biocro_warm(weather_data))
+        count_solar_sources_warm(convert_to_biocro_warm(weather_data)),
+        stringsAsFactors=FALSE
     )
 
     # Get the info from the remaining years
@@ -130,7 +135,8 @@ analyze_warm_solar_source <- function() {
 
         # Get the info
         temp_result <- as.data.frame(
-            count_solar_sources_warm(convert_to_biocro_warm(weather_data))
+            count_solar_sources_warm(convert_to_biocro_warm(weather_data)),
+            stringsAsFactors=FALSE
         )
 
         # Add it to the result

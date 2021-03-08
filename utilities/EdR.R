@@ -36,13 +36,13 @@ EdR.merge <- function(dfs, vs, newcolname) {
     )
 
     #Start to form the result
-    result <- as.data.frame(dfs[1])
+    result <- as.data.frame(dfs[1], stringsAsFactors=FALSE)
     curr_v <- as.character(vs[1])
     result[,newcolname] = curr_v
 
     # Add the rest of the data frames with their appropriate values
     for(i in 2:length(dfs)) {
-        curr_df <- as.data.frame(dfs[i])
+        curr_df <- as.data.frame(dfs[i], stringsAsFactors=FALSE)
         curr_v <- as.character(vs[i])
         curr_df[,newcolname] = curr_v
         result <- rbind(result, curr_df)
