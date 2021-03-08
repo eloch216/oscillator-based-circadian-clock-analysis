@@ -118,6 +118,9 @@ load_warm_dataset <- function(
         )
     }
 
+    # Make sure all columns contain numeric data
+    cmiday_data <- as.data.frame(sapply(cmiday_data, as.numeric))
+
     return(cmiday_data)
 }
 
