@@ -1,7 +1,7 @@
 ## oscillator-based-circadian-clock-analysis
 This repository includes R scripts and input data that were used to produce
-the figures in the manuscript "Integrating oscillator-based circadian clocks
-with crop growth simulations," which has been accepted for publication by
+the figures in the manuscript *Integrating oscillator-based circadian clocks
+with crop growth simulations,* which has been accepted for publication by
 [*in silico* Plants](https://academic.oup.com/insilicoplants).
 
 These scripts have been tested using the following installations:
