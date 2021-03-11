@@ -568,21 +568,12 @@ comp_grimm_ttc_test_thresholds <- function(
     astro_grimm,
     TTc_thresholds,
     WARM,
-    sowing_dates,
-    print_updates
+    sowing_dates
 )
 {
     # Get the errors
     error <- TTc_thresholds
     for (i in 1:length(TTc_thresholds)) {
-        if (print_updates) {
-            print(paste(
-                "comp_grimm_ttc_test_thresholds in gdd_utilities.R reports",
-                "that we are testing TTc threshold:",
-                TTc_thresholds[i]
-            ))
-        }
-
         sowing_day_results <- comp_grimm_ttc_sowing_dates(
             latitude,
             longitude,
@@ -625,14 +616,7 @@ comp_grimm_ttc_test_thresholds <- function(
         )
 
         error[i] <- comp_grimm_ttc_error(sowing_day_results)
-
-        if (print_updates) {
-            print(paste(
-                "error value:",
-                error[i]
-            ))
-        }
     }
 
-    return(data.frame(TTc_thresholds, error))
+    return(data.frame(TTc_thresholds, error, stringsAsFactors=FALSE))
 }

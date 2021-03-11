@@ -212,8 +212,7 @@ if (DETERMINE_ERRORS) {
             astro_grimm = TRUE,
             TTc_thresholds = GDD_THRESHOLDS_TO_CHECK,
             WARM = TRUE,
-            sowing_dates = DEF_SOWING_DATES,
-            print_updates = TRUE
+            sowing_dates = DEF_SOWING_DATES
         )
 
         save(gdd_errors, file=paste0(DATA_DIR, "/figure_s11.RData"))
