@@ -9,7 +9,10 @@ running on Windows 10 Enterprise version 20H2.
 
 All outputs were generated using these scripts and stored in the
 ```output_archive``` directory, with the exception of any RData files exceeding
-100 MB in size.
+100 MB in size:
+- ```output_archive/RData/cropgro_astro_comparison_cross.RData```
+- ```output_archive/RData/cropgro_astro_comparison.RData```
+- ```output_archive/RData/figure_4b.RData```
 
 Figures in the manuscript were produced from the PDFs in
 ```output_archive/figures``` using Adobe Illustrator to perform the final
