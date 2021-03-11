@@ -138,7 +138,8 @@ get_average_daily_photoperiod_length <- function(yearly_data) {
     result <- data.frame(
         doy,
         day_length,
-        sunrise
+        sunrise,
+        stringsAsFactors=FALSE
     )
 
     return(result)
@@ -353,7 +354,8 @@ analyze_oscillator_stats <- function(
         sunrise_f3,
         sunrise_f4,
         sunrise_f5,
-        sunrise_IQR
+        sunrise_IQR,
+        stringsAsFactors=FALSE
     )
 
     return(result)
