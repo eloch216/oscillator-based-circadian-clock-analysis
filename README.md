@@ -1,8 +1,14 @@
 ## oscillator-based-circadian-clock-analysis
 This repository includes R scripts and input data that were used to produce
 the figures in the manuscript *Integrating oscillator-based circadian clocks
-with crop growth simulations,* which has been accepted for publication by
-[*in silico* Plants](https://academic.oup.com/insilicoplants).
+with crop growth simulations,* available online from
+[*in silico* Plants](https://doi.org/10.1093/insilicoplants/diab016).
+
+Some of the files in the respository have been updated since the paper's
+publication, for example, to include weather data from additional years as they
+become available. The original version of the repository has been tagged as
+version ```1.0.0``` and can be found
+[here](https://github.com/eloch216/oscillator-based-circadian-clock-analysis/tree/v1.0.0).
 
 These scripts have been tested using the following installations:
 - Windows:
