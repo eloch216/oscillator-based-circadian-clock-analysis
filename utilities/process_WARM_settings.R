@@ -60,4 +60,4 @@ WARM_SOLAR_COLUMN_NAME <- "sol_rad"
 WARM_CLEAN_SOLAR_COLUMN_NAME <- "sol_rad_clean"
 WARM_CLEAN_MAX_TEMP_COLUMN_NAME <- "max_air_temp_clean"
 WARM_CLEAN_MIN_TEMP_COLUMN_NAME <- "min_air_temp_clean"
-
+WARM_PRECIPITATION_COLUMN_NAME <- "precip"

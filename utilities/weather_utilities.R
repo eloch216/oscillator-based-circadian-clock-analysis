@@ -170,7 +170,8 @@ convert_to_biocro_warm <- function(clean_hourly_data) {
         "solar",
         "solar_source",
         "cosine_zenith_angle",
-        "temp"
+        "temp",
+        "precip"
     )]
 
     # Unfortunately, some years have gaps in the data that can't be easily
