@@ -4,6 +4,7 @@
 source("utilities/celestial_mechanics_utilities.R")
 source("utilities/temperature_utilities.R")
 source("utilities/solar_utilities.R")
+source("utilities/precipitation_utilities.R")
 
 ## Define a function that determines day of year (DOY) from a Y/M/D triplet
 day_of_year <- function(year, month, day) {
@@ -206,7 +207,8 @@ generate_hourly_profiles <- function(
     t_today_max,
     t_tomorrow_min,
     atmospheric_transmittance,
-    atmospheric_pressure
+    atmospheric_pressure,
+    precipitation
 )
 {
     # Get the hourly solar coordinates for the first point
@@ -240,11 +242,15 @@ generate_hourly_profiles <- function(
         t_tomorrow_min[1]
     )
 
+    # Get the hourly precipitation profile for the first point
+    precip_result <- generate_hourly_precipitation_profile(precipitation[1])
+
     # Combine all the profiles
     result <- cbind(
         hourly_sun_position_profile,
         solar_result,
-        temp_result
+        temp_result,
+        precip_result
     )
 
     # Get the rest of the results and add them
@@ -280,11 +286,15 @@ generate_hourly_profiles <- function(
             t_tomorrow_min[i]
         )
 
+        # Get the hourly precipitation profile for the first point
+        precip_result <- generate_hourly_precipitation_profile(precipitation[i])
+
         # Combine all the profiles
         new_result <- cbind(
             hourly_sun_position_profile,
             solar_result,
-            temp_result
+            temp_result,
+            precip_result
         )
 
         # Add them to the total result
@@ -306,7 +316,8 @@ get_hourly_warm_data <- function(
     min_air_temp_col,
     sol_col,
     atmospheric_transmittance,
-    atmospheric_pressure
+    atmospheric_pressure,
+    precip_col
 )
 {
     # Get yesterday's maximum temperature, just using zero for the first day
@@ -336,7 +347,8 @@ get_hourly_warm_data <- function(
         daily_data[[max_air_temp_col]],
         daily_data$t_tomorrow_min,
         atmospheric_transmittance,
-        atmospheric_pressure
+        atmospheric_pressure,
+        daily_data[[precip_col]]
     )
 
     # Add a doy_dbl column
