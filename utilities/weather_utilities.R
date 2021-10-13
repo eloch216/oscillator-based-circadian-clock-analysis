@@ -7,8 +7,8 @@ source("utilities/process_WARM_settings.R")
 source("utilities/process_WARM_utilities.R")
 
 ## Load the stored weather data
-load(file=paste0(SURFRAD_PROCESSED_DIR, "/surfrad_hourly_cdt.RData"))
-load(file=paste0(WARM_PROCESSED_DIR, "/warm_hourly_cdt.RData"))
+load(file=paste0(SURFRAD_PROCESSED_DIR, "/surfrad_hourly_local_time.RData"))
+load(file=paste0(WARM_PROCESSED_DIR, "/warm_hourly_local_time.RData"))
 
 ## Define a function that finds the longest nan-free interval in a vector
 find_longest_interval <- function(data_vector) {

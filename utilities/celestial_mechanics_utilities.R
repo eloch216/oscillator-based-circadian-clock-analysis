@@ -103,9 +103,10 @@ calculate_sunrise <- function(
     # Find the local true solar transit
     n_transit <- n_noon_local + solar_coordinates$eot
 
-    # Convert time to CDT. n is referenced to GMT noon, and CDT is UTC-5, so
-    # n = 0 => UTC time is 12 => CDT time is 7
-    hour_transit <- (n_transit * HPD + 7) %% HPD
+    # Convert time to local time. n is reference to GMT noon, and local time is
+    # UTC + DEF_TIME_ZONE_OFFSET, so n = 0 => UTC time is 12 => local time is
+    # 12 + DEF_TIME_ZONE_OFFSET.
+    hour_transit <- (n_transit * HPD + 12 + DEF_TIME_ZONE_OFFSET) %% HPD
 
     # Calculate sunrise and sunset
     sunrise <- hour_transit - omega_0 * DTH
@@ -201,21 +202,28 @@ generate_hourly_sun_position_profile <- function(
     # Calculate the ndate value at noon on the first day of the year (in UTC)
     jan1_offset <- calculate_ndate_from_UTC(year, 1, 12)
 
-    # Assume that a day goes from hour = 0 to hour 23 in CDT (central daylight
-    # time), which is UTC - 5. So hour 0 of January 1, 2000 in Urbana is hour 5
-    # of January 1, 2000 Greenwich time, which is 7 hours before noon (UTC).
+    # Assume that a day goes from hour = 0 to hour 23 in local time, which is
+    # which is UTC + DEF_TIME_ZONE_OFFSET. So hour 0 of January 1, 2000 locally
+    # is hour -DEF_TIME_ZONE_OFFSET of January 1, 2000 Greenwich time, which is
+    # 12 + DEF_TIME_ZONE_OFFSET hours before noon (UTC).
+    #
+    # For example, if local time is CDT (= UTC - 5), then hour 0 of January 1,
+    # 2000 local time is 12 - 5 = 7 hours before noon January 1, 2000 Greenwich
+    # time.
+    #
+    # Also, we should calculate the Sun's position at the middle of the hourly
+    # interval represented by the time point where hour = h. This interval goes
+    # from h - 1 to h, so we can approximate the average solar position during
+    # this interval as its position at h - 0.5.
     #
     # Use this to determine the number of days since Greenwich noon, Terrestrial
-    # Time, on 1 January 2000 at the start of this day (n).
+    # Time, on 1 January 2000 at the start of this day (n), which should be
+    # -(12 + DEF_TIME_ZONE_OFFSET) - 0.5 = -(12.5 + DEF_TIME_ZONE_OFFSET).
     #
     # n is related to the Julian date (jd) by n = jd - 2451545.0.
     #
     # Note: UTC and Julian days measure mean solar time.
-    #
-    # Also, we should probably calculate the sun's position at the middle of the
-    # hourly interval, i.e., the value at h should be the average over the time
-    # period from h-1 to h, which we will approximate as the value at h-0.5
-    n_start <- jan1_offset + (doy - 1) - 7.5 / HPD
+    n_start <- jan1_offset + (doy - 1) - (12.5 + DEF_TIME_ZONE_OFFSET) / HPD
 
     # Create a vector of n values for each hour of this day
     n <- seq(from=n_start, by=1.0/HPD, length.out=HPD)
@@ -270,8 +278,8 @@ generate_hourly_sun_position_profile <- function(
     zenith_angle <- zenith_angle - refrac
     cosine_zenith_angle <- cos(zenith_angle * DTR)
 
-    # Convert time to CDT at the end of the time interval
-    hour <- (n * HPD + 7.5) %% HPD
+    # Convert time to its local value at the end of the time interval
+    hour <- (n * HPD + 12.5 + DEF_TIME_ZONE_OFFSET) %% HPD
 
     # Return the results
     return(data.frame(

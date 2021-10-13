@@ -15,7 +15,7 @@ LOAD_AND_SAVE_SURFRAD <- TRUE   # produces 'YYYY_original.csv' files
 COMBINE_HOURLY_SURFRAD <- TRUE  # produces 'all_raw_hourly_data.RData'
 CLEAN_HOURLY_SURFRAD <- TRUE    # produces 'all_clean_hourly_data.RData'
 SPLIT_HOURLY_SURFRAD <- TRUE    # produces 'YYYY_processed.csv' files
-                                # and 'surfrad_hourly_cdt.RData'
+                                # and 'surfrad_hourly_local_time.RData'
 
 ## Combine the raw SURFRAD data into one CSV file for each year
 if (LOAD_AND_SAVE_SURFRAD) {
@@ -63,18 +63,18 @@ if (COMBINE_HOURLY_SURFRAD) {
     )
 }
 
-## Convert the hourly data from UTC to CDT, try to fill in any missing values,
-## and split the big data frame into yearly ones. We need to do the processing
-## with the full data set because the original yearly divisions are in UTC time
-## rather than CDT, and there are some gaps at the beginning or ends of years
-## that otherwise wouldn't be possible to fill.
+## Convert the hourly data from UTC to local time, try to fill in any missing
+## values, and split the big data frame into yearly ones. We need to do the
+## processing with the full data set because the original yearly divisions are
+## in UTC time rather than local time, and there are some gaps at the beginning
+## or ends of years that otherwise wouldn't be possible to fill.
 if (CLEAN_HOURLY_SURFRAD) {
     # Load the big data frame with all the raw hourly data
     load(file=paste0(SURFRAD_PROCESSED_DIR, "/all_raw_hourly_data.RData"))
 
-    # Convert to CDT
+    # Convert to local time
     all_clean_hourly_data <-
-                convert_raw_surfrad_hourly_to_cdt(all_raw_hourly_data)
+                convert_raw_surfrad_hourly_to_local(all_raw_hourly_data)
 
     # Choose variables that we should attempt to "clean"
     #  by replacing NA values with estimations
@@ -129,6 +129,6 @@ if (SPLIT_HOURLY_SURFRAD) {
     # Save all the data frames
     save(
         list = ls(pattern=glob2rx("surfrad*")),
-        file = paste0(SURFRAD_PROCESSED_DIR, "/surfrad_hourly_cdt.RData")
+        file = paste0(SURFRAD_PROCESSED_DIR, "/surfrad_hourly_local_time.RData")
     )
 }

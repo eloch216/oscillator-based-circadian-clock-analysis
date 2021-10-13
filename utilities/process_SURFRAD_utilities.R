@@ -225,11 +225,11 @@ hourly_data_for_year_surfrad <- function(
     return(hourly_data)
 }
 
-## Define a function that converts a year, DOY, hour triplet from UTC to CDT
-utc_to_cdt <- function(year, doy, hour) {
-    # CDT is UTC-5, so we just need to subtract 5 from the hour
-    offset <- 5
-    newhour <- hour - offset
+## Define a function that converts a year, DOY, hour triplet from UTC to local
+## time, using the value of a global variable to set the time zone offset
+utc_to_local <- function(year, doy, hour) {
+    # Local time is UTC + DEF_TIME_ZONE_OFFSET
+    newhour <- hour + DEF_TIME_ZONE_OFFSET
 
     # Check to see if the DOY has changed
     if (newhour < 0) {
@@ -259,17 +259,17 @@ utc_to_cdt <- function(year, doy, hour) {
     return(list(year=newyear, doy=newdoy, hour=newhour))
 }
 
-## Define a function that converts hourly data to CDT.
+## Define a function that converts hourly data to local time.
 ##
 ## Here we assume we are dealing with the raw output of
 ## get_hourly_from_yearly_surfrad, where the value at hour = N is the average
 ## over that hour.
 ##
 ## For BioCro, we want hourly values to represent the average over the preceding
-## hour, so add 1 to the hour value before sending to utc_to_cdt.
-convert_raw_surfrad_hourly_to_cdt <- function(hourly_data) {
+## hour, so add 1 to the hour value before sending to utc_to_local.
+convert_raw_surfrad_hourly_to_local <- function(hourly_data) {
     for (i in 1:length(hourly_data$year)) {
-        new_time <- utc_to_cdt(
+        new_time <- utc_to_local(
             hourly_data$year[i],
             hourly_data$doy[i],
             hourly_data$hour[i]+1 # add 1 to hour, as explained above

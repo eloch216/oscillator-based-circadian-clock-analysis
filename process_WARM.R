@@ -14,7 +14,7 @@ LOAD_AND_SAVE_WARM <- TRUE      # produces 'warm_data_daily_raw.RData'
 CLEAN_DAILY_WARM <- TRUE        # produces 'warm_data_daily_clean.RData'
 CONVERT_WARM_TO_HOURLY <- TRUE  # produces 'warm_data_hourly.RData'
 SPLIT_HOURLY_WARM <- TRUE       # produces 'YYYY_processed.csv' files and
-                                # the 'warm_hourly_cdt.RData' file
+                                # the 'warm_hourly_local_time.RData' file
 
 ## Read the data from the file
 if (LOAD_AND_SAVE_WARM) {
@@ -105,6 +105,6 @@ if (SPLIT_HOURLY_WARM) {
     # Save all the data frames
     save(
         list = ls(pattern=glob2rx("warm*")),
-        file = paste0(WARM_PROCESSED_DIR, "/warm_hourly_cdt.RData")
+        file = paste0(WARM_PROCESSED_DIR, "/warm_hourly_local_time.RData")
     )
 }
