@@ -211,19 +211,18 @@ generate_hourly_sun_position_profile <- function(
     # 2000 local time is 12 - 5 = 7 hours before noon January 1, 2000 Greenwich
     # time.
     #
-    # Also, we should calculate the Sun's position at the middle of the hourly
-    # interval represented by the time point where hour = h. This interval goes
-    # from h - 1 to h, so we can approximate the average solar position during
-    # this interval as its position at h - 0.5.
+    # Ideally, we should calculate the Sun's average position during the hour-
+    # long interval centered at hour h. However, we will approximate this
+    # average by just using the value at hour h.
     #
     # Use this to determine the number of days since Greenwich noon, Terrestrial
     # Time, on 1 January 2000 at the start of this day (n), which should be
-    # -(12 + DEF_TIME_ZONE_OFFSET) - 0.5 = -(12.5 + DEF_TIME_ZONE_OFFSET).
+    # -(12 + DEF_TIME_ZONE_OFFSET).
     #
     # n is related to the Julian date (jd) by n = jd - 2451545.0.
     #
     # Note: UTC and Julian days measure mean solar time.
-    n_start <- jan1_offset + (doy - 1) - (12.5 + DEF_TIME_ZONE_OFFSET) / HPD
+    n_start <- jan1_offset + (doy - 1) - (12.0 + DEF_TIME_ZONE_OFFSET) / HPD
 
     # Create a vector of n values for each hour of this day
     n <- seq(from=n_start, by=1.0/HPD, length.out=HPD)
@@ -278,8 +277,8 @@ generate_hourly_sun_position_profile <- function(
     zenith_angle <- zenith_angle - refrac
     cosine_zenith_angle <- cos(zenith_angle * DTR)
 
-    # Convert time to its local value at the end of the time interval
-    hour <- (n * HPD + 12.5 + DEF_TIME_ZONE_OFFSET) %% HPD
+    # Convert time to its local value at the center of the time interval
+    hour <- (n * HPD + 12.0 + DEF_TIME_ZONE_OFFSET) %% HPD
 
     # Return the results
     return(data.frame(
