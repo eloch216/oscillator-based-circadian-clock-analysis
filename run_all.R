@@ -9,6 +9,10 @@ source("process_WARM.R")
 print("process_SURFRAD.R")
 source("process_SURFRAD.R")
 
+## Generate BioCro weather data
+print("process_biocro_weather.R")
+source("process_biocro_weather.R")
+
 ## Generate figures s1, s2, s3, and s4 and tables s1 and s2, which pertain to
 ## the weather data used as an input to the oscillator clock.
 print("analyze_weather.R")
