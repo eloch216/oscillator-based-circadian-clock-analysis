@@ -37,6 +37,7 @@ combinations, recoloring, annotations, etc.
 
 #### Requirements
 - The [R environment](https://cran.r-project.org/)
+  - The `lattice` and `RColorBrewer` packages are used for plots
 - On Windows, [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
 - On MacOS, [Xcode](https://developer.apple.com/xcode/)
 
