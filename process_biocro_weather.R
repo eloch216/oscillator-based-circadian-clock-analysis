@@ -75,5 +75,10 @@ weather <- list(
     '2022' = process_year(surfrad2022, warm2022)
 )
 
+# Double check to make sure years are consistent
+if (any(as.numeric(names(weather)) != FULL_WEATHER)) {
+    warning('Double check years used for cmi_weather_data')
+}
+
 # Save the results
 save(weather, file = paste0(DATA_DIR, '/cmi_weather_data.RData'))

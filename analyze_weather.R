@@ -75,7 +75,7 @@ count_solar_sources_warm <- function(biocro_warm_data) {
 ## Define a function that gets stats for each year of surfrad data
 analyze_surfrad_solar_source <- function() {
     # Make the list of years
-    years <- 1995:2019
+    years <- SURFRAD_YEARS
 
     # Get the weather data from the first year
     command <- paste("weather_data <- surfrad", years[1], sep="")
@@ -115,7 +115,7 @@ analyze_surfrad_solar_source <- function() {
 ## Define a function that gets stats for each year of warm data
 analyze_warm_solar_source <- function() {
     # Make the list of years
-    years <- 1989:2019
+    years <- WARM_YEARS
 
     # Get the weather data from the first year
     command <- paste("weather_data <- warm", years[1], sep="")

@@ -482,10 +482,10 @@ do_comparison_all_years <- function(
 {
     # Make the list of years
     if (WARM) {
-        years <- 1990:2019
+        years <- WARM_YEARS
     }
     else {
-        years <- 1995:2019
+        years <- SURFRAD_YEARS
     }
 
     # Get the corresponding weather data
@@ -948,10 +948,10 @@ test_grimm_sowing_dates_model_params_all_years <- function(
 {
     # Make the list of years
     if (WARM) {
-        years <- 1990:2019
+        years <- WARM_YEARS
     }
     else {
-        years <- 1995:2019
+        years <- SURFRAD_YEARS
     }
 
     # Get the corresponding weather data

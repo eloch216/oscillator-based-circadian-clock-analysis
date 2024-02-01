@@ -6,6 +6,12 @@ source("utilities/process_SURFRAD_utilities.R")
 source("utilities/process_WARM_settings.R")
 source("utilities/process_WARM_utilities.R")
 
+## Define vectors of years
+ALL_YEARS     <- seq(1989, 2022)           # all years where we have any weather data
+SURFRAD_YEARS <- seq(1995, max(ALL_YEARS)) # all years with complete SURFRAD data
+WARM_YEARS    <- seq(1990, max(ALL_YEARS)) # all years with complete WARM data
+FULL_YEARS    <- SURFRAD_YEARS             # all years where we have complete data from both sources
+
 ## Load the stored weather data
 load(file=paste0(SURFRAD_PROCESSED_DIR, "/surfrad_hourly_local_time.RData"))
 load(file=paste0(WARM_PROCESSED_DIR, "/warm_hourly_local_time.RData"))
