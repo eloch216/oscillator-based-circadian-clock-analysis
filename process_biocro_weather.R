@@ -82,7 +82,7 @@ weather <- list(
 )
 
 # Double check to make sure years are consistent
-if (any(as.numeric(names(weather)) != FULL_WEATHER)) {
+if (any(as.numeric(names(weather)) != FULL_YEARS)) {
     warning('Double check years used for cmi_weather_data')
 }
 
