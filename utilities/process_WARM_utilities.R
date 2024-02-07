@@ -72,7 +72,8 @@ load_warm_dataset <- function(
         sep = "\t",
         header = FALSE,
         skip = 2,
-        stringsAsFactors = FALSE
+        stringsAsFactors = FALSE,
+        blank.lines.skip = FALSE
     )
 
     colnames(cmiday) <- colnames(cmiday_names)

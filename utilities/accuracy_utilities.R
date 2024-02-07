@@ -26,10 +26,10 @@ run_clock_all_years <- function(
 {
     # Make the list of years
     if (WARM) {
-        years <- 1989:2019
+        years <- ALL_YEARS
     }
     else {
-        years <- 1995:2019
+        years <- SURFRAD_YEARS
     }
 
     # Get the weather data for the first year

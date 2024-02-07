@@ -50,8 +50,9 @@ get_yearly_surfrad <- function(directory_path, columns, column_names) {
 ## Define a function for converting a year's worth of surfrad data to hourly
 ## averages.
 ##
-## The data value for hour = N should represent the average over that hour,
-## i.e., all data values in the full set where hour = N
+## The data value for hour = N should represent the average over an hour-long
+## interval centered at N, i.e., all data values in the full set where
+## N - 0.5 <= hour < n + 0.5.
 ##
 ## The variables in nqc_variable_names are not quality controlled.
 ## The variables in qc_variable_names are quality controlled, with indicators
@@ -63,6 +64,11 @@ get_hourly_from_yearly_surfrad <- function(
     qc_names
 )
 {
+    # Add a new column to the surfrad data representing the number of hours
+    # since the beginning of the year; this will help when averaging over hour-
+    # long intervals. Here `ch` stands for "cumulative hours"
+    surfrad_data$ch <- surfrad_data$doy * 24 + surfrad_data$hour + surfrad_data$min / 60.0
+
     # Get the year
     year <- surfrad_data[1,1]
 
@@ -106,12 +112,15 @@ get_hourly_from_yearly_surfrad <- function(
             temporary[2] = doy
             temporary[3] = hour
 
+            # Get the continuous hour value
+            current_ch <- doy * 24 + hour
+
             # Get the desired non-quality-controlled variables
             for (i in 1:length(nqc_variable_names)) {
                 # Get a subset of the total data that corresponds to this doy,
                 # hour, and variable
                 data_subset <- surfrad_data[
-                    which(surfrad_data$doy == doy & surfrad_data$hour == hour),
+                    which(surfrad_data$ch >= current_ch - 0.5 & surfrad_data$ch < current_ch + 0.5),
                     c(nqc_variable_names[i])
                 ]
 
@@ -130,7 +139,7 @@ get_hourly_from_yearly_surfrad <- function(
                 # Get a subset of the total data that corresponds to this doy,
                 # hour, and variable
                 data_subset <- surfrad_data[
-                    which(surfrad_data$doy == doy & surfrad_data$hour == hour),
+                    which(surfrad_data$ch >= current_ch - 0.5 & surfrad_data$ch < current_ch + 0.5),
                     c(qc_variable_names[i], qc_names[i])
                 ]
 
@@ -225,11 +234,11 @@ hourly_data_for_year_surfrad <- function(
     return(hourly_data)
 }
 
-## Define a function that converts a year, DOY, hour triplet from UTC to CDT
-utc_to_cdt <- function(year, doy, hour) {
-    # CDT is UTC-5, so we just need to subtract 5 from the hour
-    offset <- 5
-    newhour <- hour - offset
+## Define a function that converts a year, DOY, hour triplet from UTC to local
+## time, using the value of a global variable to set the time zone offset
+utc_to_local <- function(year, doy, hour) {
+    # Local time is UTC + DEF_TIME_ZONE_OFFSET
+    newhour <- hour + DEF_TIME_ZONE_OFFSET
 
     # Check to see if the DOY has changed
     if (newhour < 0) {
@@ -259,20 +268,18 @@ utc_to_cdt <- function(year, doy, hour) {
     return(list(year=newyear, doy=newdoy, hour=newhour))
 }
 
-## Define a function that converts hourly data to CDT.
+## Define a function that converts hourly data to local time.
 ##
 ## Here we assume we are dealing with the raw output of
 ## get_hourly_from_yearly_surfrad, where the value at hour = N is the average
-## over that hour.
-##
-## For BioCro, we want hourly values to represent the average over the preceding
-## hour, so add 1 to the hour value before sending to utc_to_cdt.
-convert_raw_surfrad_hourly_to_cdt <- function(hourly_data) {
+## over an hour-long interval centered at hour = N, which is what we want for
+## BioCro weather data.
+convert_raw_surfrad_hourly_to_local <- function(hourly_data) {
     for (i in 1:length(hourly_data$year)) {
-        new_time <- utc_to_cdt(
+        new_time <- utc_to_local(
             hourly_data$year[i],
             hourly_data$doy[i],
-            hourly_data$hour[i]+1 # add 1 to hour, as explained above
+            hourly_data$hour[i]
         )
 
         hourly_data$year[i] <- new_time$year

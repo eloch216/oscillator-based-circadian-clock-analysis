@@ -74,6 +74,7 @@ DEF_SOLVER_METHOD <- "Gro_rkck54"
 DEF_SOWING_DATES <- c(120, 130, 140, 150, 160)
 DEF_SUNRISE_THRESHOLD_ANGLE <- -0.56      # Sun clears the horizon
 DEF_TBASE <- 10.0
+DEF_TIME_ZONE_OFFSET <- -6                # Central Standard Time
 DEF_TMAX <- 40.0
 DEF_TOPT <- 30.0
 DEF_TRACKER_RATE <- 2.0

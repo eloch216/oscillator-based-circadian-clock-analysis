@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <stdexcept>
 
 /**
  * `string_vector` serves as an alias for a type widely used to
