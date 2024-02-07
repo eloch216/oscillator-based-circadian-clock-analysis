@@ -7,7 +7,7 @@ source("utilities/process_WARM_settings.R")
 source("utilities/process_WARM_utilities.R")
 
 ## Define vectors of years
-ALL_YEARS     <- seq(1989, 2022)           # all years where we have any weather data
+ALL_YEARS     <- seq(1989, 2023)           # all years where we have any weather data
 SURFRAD_YEARS <- seq(1995, max(ALL_YEARS)) # all years with complete SURFRAD data
 WARM_YEARS    <- seq(1990, max(ALL_YEARS)) # all years with complete WARM data
 FULL_YEARS    <- SURFRAD_YEARS             # all years where we have complete data from both sources

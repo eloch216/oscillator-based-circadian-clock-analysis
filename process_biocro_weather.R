@@ -78,11 +78,12 @@ weather <- list(
     '2019' = process_year(surfrad2019, warm2019, 2019),
     '2020' = process_year(surfrad2020, warm2020, 2020),
     '2021' = process_year(surfrad2021, warm2021, 2021),
-    '2022' = process_year(surfrad2022, warm2022, 2022)
+    '2022' = process_year(surfrad2022, warm2022, 2022),
+    '2023' = process_year(surfrad2022, warm2022, 2023)
 )
 
 # Double check to make sure years are consistent
-if (any(as.numeric(names(weather)) != FULL_YEARS)) {
+if (max(as.numeric(names(weather))) != max(FULL_YEARS)) {
     warning('Double check years used for cmi_weather_data')
 }
 
