@@ -5,6 +5,8 @@ source("utilities/clock_utilities.R")
 
 library(BioCro)
 
+source('check_biocro_installation.R')
+
 ## Define a function that runs a poincare clock with different initial
 ## conditions using a gaussian solar profile
 run_clock_initial_conditions_gaussian <- function(

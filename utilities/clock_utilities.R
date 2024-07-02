@@ -2,6 +2,8 @@
 
 library(BioCro)
 
+source('check_biocro_installation.R')
+
 ## Define a function that runs a poincare clock for an input weather dataframe
 run_biocro_clock <- function(
     kick_strength,

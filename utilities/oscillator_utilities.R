@@ -2,6 +2,8 @@
 
 library(BioCro)
 
+source('check_biocro_installation.R')
+
 ## Define a function that runs an oscillator driven by a sinusoidal kick
 run_oscillator <- function(
     oscillator_deriv_module,

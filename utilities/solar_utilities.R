@@ -2,6 +2,8 @@
 
 library(BioCro)
 
+source('check_biocro_installation.R')
+
 ## Define a function that calculates an hourly solar radiation profile based on
 ## the sun's position and the total daily radiation
 generate_hourly_solar_profile <- function(

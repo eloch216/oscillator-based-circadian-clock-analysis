@@ -4,6 +4,8 @@
 
 library(BioCro)
 
+source('check_biocro_installation.R')
+
 source("utilities/weather_utilities.R")
 source("utilities/celestial_mechanics_utilities.R")
 source("utilities/EdR.R")

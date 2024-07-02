@@ -3,6 +3,8 @@
 
 library(BioCro)
 
+source('check_biocro_installation.R')
+
 source("utilities/cropgro_utilities.R")
 source("utilities/weather_utilities.R")
 source("utilities/EdR.R")
