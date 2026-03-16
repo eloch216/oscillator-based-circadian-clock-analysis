@@ -79,7 +79,9 @@ weather <- list(
     '2020' = process_year(surfrad2020, warm2020, 2020),
     '2021' = process_year(surfrad2021, warm2021, 2021),
     '2022' = process_year(surfrad2022, warm2022, 2022),
-    '2023' = process_year(surfrad2023, warm2023, 2023)
+    '2023' = process_year(surfrad2023, warm2023, 2023),
+    '2024' = process_year(surfrad2024, warm2024, 2024),
+    '2025' = process_year(surfrad2025, warm2025, 2025)
 )
 
 # Double check to make sure years are consistent
