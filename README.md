@@ -50,6 +50,7 @@ All outputs were generated using these scripts and stored in the
 - ```output_archive/RData/cropgro_astro_comparison_cross.RData```
 - ```output_archive/RData/cropgro_astro_comparison.RData```
 - ```output_archive/RData/figure_4b.RData```
+- ```output_archive/RData/clock_accuracy.RData```
 
 Figures in the manuscript were produced from the PDFs in
 ```output_archive/figures``` using Adobe Illustrator to perform the final
