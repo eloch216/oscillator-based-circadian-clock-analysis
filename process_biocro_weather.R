@@ -46,6 +46,18 @@ process_year <- function(
     # Add a column for the time zone offset
     weather[['time_zone_offset']] <- DEF_TIME_ZONE_OFFSET
 
+    # Special consideration is needed for 2024, where no SURFRAD logs are
+    # available for days 214-234, and the log for day 235 is incomplete. The
+    # interpolation approach used when processing the SURFRAD data works well
+    # for small gaps, but not a large one spanning three weeks, especially for
+    # the `solar` data. So for this time period, we use the `solar` values from
+    # WARM instead of SURFRAD.
+    if (year == 2024) {
+        doy_range <- seq(214, 235)
+        weather[weather[['doy']] %in% doy_range, 'solar'] <-
+            warm_weather[warm_weather[['doy']] %in% doy_range, 'solar']
+    }
+
     return(weather[weather_columns])
 }
 
