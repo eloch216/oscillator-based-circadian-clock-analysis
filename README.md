@@ -27,7 +27,7 @@ repository was used.
   Oscillator-Based Circadian Clocks with Crop Growth Simulations." *in Silico
   Plants* **3** (diab016).
 - **Citing this version of the repository:** Lochocki, E. B. and McGrath,
-  J. M. 2023. "Oscillator-Based Circadian Clock Analysis" v1.2.0.
+  J. M. 2023. "Oscillator-Based Circadian Clock Analysis" v1.3.0.
   https://github.com/eloch216/oscillator-based-circadian-clock-analysis.
 
 ## Details

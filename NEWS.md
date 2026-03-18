@@ -1,3 +1,7 @@
+## VERSION 1.3.0 (tagged v1.3.0)
+
+- Added 2023, 2024, and 2025 weather data
+
 ## VERSION 1.2.0 (tagged v1.2.0)
 
 - Added 2021 and 2022 weather data
